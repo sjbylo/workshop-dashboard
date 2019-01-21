@@ -1,23 +1,32 @@
 function handle_execute(event, terminal) {
-    var element = event.target.parentElement;
-    var value = element.innerText.trim();
+    var value = event.target.innerText.trim();
     parent.send_to_terminal(value, terminal);
 }
 
-function handle_copy(event) {
-    var element = event.target.parentElement;
-    var value = element.innerText.trim();
-    var input = document.createElement('input');
-    input.setAttribute('value', value);
-    document.body.appendChild(input);
-    input.select();
+function copy_to_clipboard(value) {
+    const el = document.createElement('textarea');
+    el.value = value;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    const selected = document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;
+    el.select();
     document.execCommand('copy');
-    document.body.removeChild(input)
+    document.body.removeChild(el);
+    if (selected) {
+	document.getSelection().removeAllRanges();
+	document.getSelection().addRange(selected);
+    }
+}
+
+function handle_copy(event) {
+    copy_to_clipboard(event.target.innerText.trim());
 }
 
 $(document).ready(function() {
     $.each([$('code.execute'), $('code.execute-1')], function() {
-        this.parent().prepend('<span class="execute-glyph glyphicon glyphicon-play-circle" aria-hidden="true"></span>');
+        this.parent().prepend('<span class="execute-glyph fa fa-play-circle" aria-hidden="true"></span>');
 	this.parent().click(function(event) {
             $(this).find('.execute-glyph').addClass('text-danger');
             handle_execute(event, 1);
@@ -25,7 +34,7 @@ $(document).ready(function() {
     });
 
     $.each([$('code.execute-2')], function() {
-        this.parent().prepend('<span class="execute-glyph glyphicon glyphicon-play-circle" aria-hidden="true"></span>');
+        this.parent().prepend('<span class="execute-glyph fa fa-play-circle" aria-hidden="true"></span>');
 	this.parent().click(function(event) {
             $(this).find('.execute-glyph').addClass('text-danger');
             handle_execute(event, 2);
@@ -33,7 +42,7 @@ $(document).ready(function() {
     });
 
     $.each([$('code.copy')], function() {
-        this.parent().prepend('<span class="copy-glyph glyphicon glyphicon-scissors" aria-hidden="true"></span>');
+        this.parent().prepend('<span class="copy-glyph fa fa-cut" aria-hidden="true"></span>');
 	this.parent().click(function(event) {
             $(this).find('.copy-glyph').addClass('text-danger');
 	    handle_copy(event);

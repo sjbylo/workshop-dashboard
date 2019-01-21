@@ -1,6 +1,6 @@
 
 <div class="row">
-  <div class="col-sm-3 d-sm-block d-none">
+  <div class="col-sm-3 d-none">
 
     <ul class="menu">
       {{#canEdit}}
@@ -50,22 +50,6 @@
 
     <section class="content">
 
-      <div class="btn-group btn-group-xs float-right">
-          {{#meta.prev_page}}
-            <button type="button" onclick="location.href='./{{meta.prev_page}}';" class="btn btn-xs" aria-label="Prev">
-              <span class="fa fa-arrow-left" aria-hidden="true"></span>
-            </button>
-          {{/meta.prev_page}}
-          <button type="button" onclick="location.href='{{config.base_url}}';" class="btn btn-xs" aria-label="Home">
-            <span class="fa fa-home" aria-hidden="true"></span>
-          </button>
-          {{#meta.next_page}}
-            <button type="button" onclick="location.href='./{{meta.next_page}}';" class="btn btn-xs" aria-label="Next">
-              <span class="fa fa-arrow-right" aria-hidden="true"></span>
-            </button>
-          {{/meta.next_page}}
-      </div>
-
       {{#canEdit}}
         <div class="btn-group btn-group-sm float-right">
           <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -83,47 +67,14 @@
       {{{content}}}
 
       <div class="page-meta clearfix">
-        <div class="float-left">
         {{#config.support_email}}
           <div class="contact-support float-left">
-            <span class="fa fa-envelope"></span> {{lang.page.needHelp}} <a href="mailto:{{config.support_email}}">{{lang.page.getInTouch}}</a>
+            <span class="glyphicon glyphicon-envelope"></span> {{lang.page.needHelp}} <a href="mailto:{{config.support_email}}">{{lang.page.getInTouch}}</a>
           </div>
         {{/config.support_email}}
-        <div class="last-updated">
+        <div class="last-updated float-right">
           {{lang.global.lastUpdated}} {{last_modified}}
         </div>
-        </div>
-        {{#meta.next_page}}
-          {{#meta.exit_sign}}
-            <input type="button" class="btn btn-lg btn-primary float-right" onclick="location.href='./{{meta.next_page}}';" value="{{meta.exit_sign}}" />
-          {{/meta.exit_sign}}
-          {{^meta.exit_sign}}
-            <input type="button" class="btn btn-lg btn-primary float-right" onclick="location.href='./{{meta.next_page}}';" value="Continue" />
-          {{/meta.exit_sign}}
-        {{/meta.next_page}}
-        {{^meta.next_page}}
-          {{#meta.exit_link}}
-            {{#meta.exit_sign}}
-              <input type="button" class="btn btn-lg btn-success float-right" onclick="location.href='{{meta.exit_link}}';" value="{{meta.exit_sign}}" />
-            {{/meta.exit_sign}}
-            {{^meta.exit_sign}}
-              <input type="button" class="btn btn-lg btn-success float-right" onclick="location.href='{{meta.exit_link}}';" value="Continue" />
-            {{/meta.exit_sign}}
-          {{/meta.exit_link}}
-          {{^meta.exit_link}}
-            {{#meta.exit_sign}}
-              {{#config.restart_url}}
-                <input type="button" class="btn btn-lg btn-danger float-right" onclick="window.parent.location.href='{{config.restart_url}}';" value="{{meta.exit_sign}}" />
-              {{/config.restart_url}}
-              {{^config.restart_url}}
-                <input type="button" class="btn btn-lg btn-success float-right" onclick="location.href='{{config.base_url}}';" value="{{meta.exit_sign}}" />
-              {{/config.restart_url}}
-            {{/meta.exit_sign}}
-            {{^meta.exit_sign}}
-              <input type="button" class="btn btn-lg btn-success float-right" onclick="location.href='{{config.base_url}}';" value="Home" />
-            {{/meta.exit_sign}}
-          {{/meta.exit_link}}
-        {{/meta.next_page}}
       </div>
 
     </section>

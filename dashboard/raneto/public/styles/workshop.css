@@ -16,17 +16,19 @@
 }
 
 .content pre {
-    padding: 0px;
+    padding: 6px;
+    white-space: pre-wrap;
+    word-break: keep-all;
 }
 
 span.execute-glyph {
     display: block;
     float: right;
-    padding: 8px;
+    padding: 3px;
 }
 
 span.copy-glyph {
     display: block;
     float: right;
-    padding: 8px;
+    padding: 3px;
 }
